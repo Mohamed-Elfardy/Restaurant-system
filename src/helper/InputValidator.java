@@ -2,7 +2,7 @@ package helper;
 
 import java.util.Scanner;
 public class InputValidator {
-    private static Scanner input = new Scanner(System.in);
+    private static final Scanner input = new Scanner(System.in);
     
     // Integer Validation
     public static int Read_Int(String message){
@@ -35,19 +35,24 @@ public class InputValidator {
     }
 
     // String Validation
-    public static String Read_String(String message){
+    public static String Read_String(String message) {
         String choose;
-        while(true){
+        while (true) {
             System.out.print(message);
-            choose = input.nextLine().trim();    // .trim() to remove more spaces
+            choose = input.nextLine().trim(); // .trim() to remove more spaces
 
-            if(!choose.isBlank())
+            if (!choose.isBlank())
                 return choose;
-            else{
-                System.out.println("Your Choose cannot be Empty or Spaces");
+            else {
+                System.out.println("Your choice cannot be empty or spaces");
             }
         }
     }
+    
+
+    // If Range is existed
+    // public static int readIntInRange(int min, int max, String message) { ... }
+    // public static double readPositiveDouble(String message) { ... }
 
 
 }
