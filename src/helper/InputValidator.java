@@ -1,7 +1,6 @@
 package helper;
 
 import java.util.Scanner;
-import java.lang.*;
 public class InputValidator {
     private static Scanner input = new Scanner(System.in);
     
