@@ -24,7 +24,7 @@ public class InputValidator {
         double choose;
         while(true){
             try{
-                System.out.println(message);
+                System.out.print(message);
                 choose = Double.parseDouble(input.nextLine());
                 return choose;
             }
@@ -38,7 +38,7 @@ public class InputValidator {
     public static String Read_String(String message){
         String choose;
         while(true){
-            System.out.println(message);
+            System.out.print(message);
             choose = input.nextLine().trim();    // .trim() to remove more spaces
 
             if(!choose.isBlank())
