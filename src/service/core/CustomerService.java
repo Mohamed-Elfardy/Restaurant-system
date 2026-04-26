@@ -56,19 +56,19 @@ public class CustomerService {
             return;
         }
 
-        System.out.println("Found: " + customer.getName() + " — leave field blank to keep current value.");
+        System.out.println("Found: " + customer.getName() + " — Type 'same' to keep current text.");
 
         String name = InputValidator.Read_String("New Name [" + customer.getName() + "]: ");
-        if (!name.isBlank()) customer.setName(name);
+        if (!name.equalsIgnoreCase("same")) customer.setName(name);
 
         String phone = InputValidator.Read_String("New Phone [" + customer.getPhone() + "]: ");
-        if (!phone.isBlank()) customer.setPhone(phone);
+        if (!phone.equalsIgnoreCase("same")) customer.setPhone(phone);
 
         String email = InputValidator.Read_String("New Email [" + customer.getEmail() + "]: ");
-        if (!email.isBlank()) customer.setEmail(email);
+        if (!email.equalsIgnoreCase("same")) customer.setEmail(email);
 
         String address = InputValidator.Read_String("New Address [" + customer.getAddress() + "]: ");
-        if (!address.isBlank()) customer.setAddress(address);
+        if (!address.equalsIgnoreCase("same")) customer.setAddress(address);
 
         System.out.println("Customer updated successfully.");
     }

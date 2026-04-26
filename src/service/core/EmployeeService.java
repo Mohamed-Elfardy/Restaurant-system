@@ -45,28 +45,28 @@ public class EmployeeService {
             return;
         }
 
-        System.out.println("Found: " + employee.getName() + " — leave field blank / enter 0 to keep current value.");
+        System.out.println("Found: " + employee.getName() + " — Type 'same' to keep current text, or '-1' for numbers.");
 
         String name = InputValidator.Read_String("New Name [" + employee.getName() + "]: ");
-        if (!name.isBlank()) employee.setName(name);
+        if (!name.equalsIgnoreCase("same")) employee.setName(name);
 
         String phone = InputValidator.Read_String("New Phone [" + employee.getPhone() + "]: ");
-        if (!phone.isBlank()) employee.setPhone(phone);
+        if (!phone.equalsIgnoreCase("same")) employee.setPhone(phone);
 
         String email = InputValidator.Read_String("New Email [" + employee.getEmail() + "]: ");
-        if (!email.isBlank()) employee.setEmail(email);
+        if (!email.equalsIgnoreCase("same")) employee.setEmail(email);
 
         String username = InputValidator.Read_String("New Username [" + employee.getUsername() + "]: ");
-        if (!username.isBlank()) employee.setUsername(username);
+        if (!username.equalsIgnoreCase("same")) employee.setUsername(username);
 
         String password = InputValidator.Read_String("New Password [hidden]: ");
-        if (!password.isBlank()) employee.setPassword(password);
+        if (!password.equalsIgnoreCase("same")) employee.setPassword(password);
 
         String role = InputValidator.Read_String("New Role [" + employee.getRole() + "]: ");
-        if (!role.isBlank()) employee.setRole(role);
+        if (!role.equalsIgnoreCase("same")) employee.setRole(role);
 
-        double salary = InputValidator.Read_Double("New Salary [" + employee.getSalary() + "] (0 to keep): ");
-        if (salary > 0) employee.setSalary(salary);
+        double salary = InputValidator.Read_Double("New Salary [" + employee.getSalary() + "] (-1 to keep): ");
+        if (salary != -1) employee.setSalary(salary);
 
         System.out.println("Employee updated successfully.");
     }
