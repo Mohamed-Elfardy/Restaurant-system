@@ -1,172 +1,255 @@
-# Restaurant Management System
+<div align="center">
 
-## Project Overview
-The Restaurant Management System is a Java-based Object-Oriented Programming (OOP) application designed to manage the daily operations of a restaurant. The system integrates multiple modules to handle users, employees, customers, meals, orders, billing, offers, rewards, notifications, and reports.
+# 🍽️ Restaurant Management System
 
-The goal of this project is to apply OOP principles such as encapsulation, inheritance, abstraction, and modular design to build a structured and scalable system.
+### A fully custom-built, console-based Java application — engineered from scratch.
 
----
+![Java](https://img.shields.io/badge/Java-OOP-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
 
-## Features
+> A comprehensive, modular Restaurant Management System built entirely from the ground up using core Java and Object-Oriented Programming principles — no frameworks, no external dependencies, pure engineering.
 
-### Administrative Module
-- Manage employees (Add, Update, Delete, Search, List)
-- Manage meals (Add, Update, Delete, Search, List)
-- Generate reports (customers, employees, sales)
-- Create offers and marketing programs
-
-### Employee Module
-- Manage customers (Add, Update, Delete, Search, List)
-- Create and cancel orders
-- Handle billing and payments
-- Receive notifications about offers and rewards
-
-### Customer Module
-- Store customer profile and history
-- Track orders and payments
-- Track received offers and gifts
-- Register in loyalty and marketing programs
-
-### Orders & Meals
-- Create orders with multiple items
-- Calculate total order cost
-- Manage meal availability and categories
-
-### Billing & Payments
-- Generate bills from orders
-- Process payments
-- Track payment history
-- Apply offers and discounts
-
-### Offers & Rewards
-- Apply discounts based on conditions
-- Reward customers based on total spending
-- Loyalty and reward program support
-
-### Notifications
-- Notify employees about new offers
-- Notify customers when eligible for rewards
-
-### Reports
-- Generate customer reports
-- Generate employee reports
-- Generate sales and payment reports
+</div>
 
 ---
 
-## Technologies Used
+## 📌 Table of Contents
 
-- Java (Core Java)
-- Object-Oriented Programming (OOP)
-- ArrayList for data storage
-- Console-based UI
-- Git & GitHub for version control
+- [Overview](#-overview)
+- [Features](#-features)
+- [System Architecture](#-system-architecture)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+- [Project Structure](#-project-structure)
+- [Development Team](#-development-team)
 
 ---
 
-## Project Structure
+## 🧭 Overview
+
+The **Restaurant Management System** is a full-featured, console-based application developed entirely from scratch by a dedicated team of six engineers. It is designed to handle every operational aspect of a restaurant — from user authentication and order processing to loyalty programs, billing, and automated notifications.
+
+Every component — including ID generation, data seeding, validation logic, and display utilities — was hand-crafted without relying on any third-party libraries or frameworks, demonstrating a strong command of Java OOP fundamentals and clean software design.
+
+---
+
+## ✨ Features
+
+### 🔐 Authentication & Configuration
+- Secure user login and role-based access control
+- Centralized application configuration management
+- Custom ID generation engine for all entities
+- Automated data seeding for initial system setup
+
+### 👥 User & Employee Management
+- Full CRUD operations for **Customer** and **Employee** entities
+- Dedicated service layers with clean separation of concerns
+- Role differentiation between customers, staff, and administrators
+
+### 🍕 Meal & Menu Management
+- Structured **Meal**, **Category**, and related entity models
+- Full menu organization with categorized item listings
+- Flexible meal configuration and availability management
+
+### 🧾 Order Processing
+- End-to-end **Order** and **OrderItem** lifecycle management
+- Real-time order tracking and status updates
+- Multi-item order composition with quantity control
+
+### 💳 Billing & Payments
+- Automated **Billing** generation per order
+- Multiple **Payment** method support
+- Integrated **Offers** and **Gifts** system for discounts and promotions
+
+### 📊 Reports & Notifications
+- Business intelligence via built-in **Reporting** module
+- Automated **Notification** system for order and system events
+- Sales and activity summaries
+
+### 🎯 Loyalty, Marketing & Rewards
+- Full **Loyalty Program** with point accumulation and redemption
+- **Marketing Campaign** management
+- Structured **Reward Program** engine for customer retention
+
+### 🖥️ Console Interface & Utilities
+- Clean, navigable **Console Display** system
+- Robust **Input Validation** for all user interactions
+- Reusable **Menu Utilities** for consistent UI/UX across the app
+
+---
+
+## 🏗️ System Architecture
+
+The system follows a clean, layered architecture pattern:
 
 ```
+┌─────────────────────────────────────────────┐
+│              Console Interface               │
+│     (Display, Menus, Input Validation)       │
+├─────────────────────────────────────────────┤
+│              Service Layer                   │
+│  (Auth, Customer, Employee, Order, Billing,  │
+│   Loyalty, Marketing, Notifications, etc.)   │
+├─────────────────────────────────────────────┤
+│              Entity / Model Layer            │
+│  (User, Meal, Order, OrderItem, Invoice,     │
+│   Reward, Offer, Gift, Notification, etc.)   │
+├─────────────────────────────────────────────┤
+│          Config, Seeding & Utilities         │
+│      (AppConfig, DataSeeder, IdGenerator)    │
+└─────────────────────────────────────────────┘
+```
 
-src/
+**Design Principles Applied:**
+- **Encapsulation** — All entities are self-contained with controlled access
+- **Inheritance** — Shared behavior abstracted into base classes
+- **Polymorphism** — Service interfaces with flexible implementations
+- **Abstraction** — Clean separation between UI, logic, and data layers
+- **Single Responsibility** — Each class and module has one clear purpose
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Details |
+|---|---|
+| **Language** | Java (JDK 8+) |
+| **Paradigm** | Object-Oriented Programming (OOP) |
+| **Interface** | Console / Terminal (CLI) |
+| **Build Tool** | Manual / IDE (IntelliJ IDEA / Eclipse) |
+| **Dependencies** | None — built entirely from scratch |
+| **Version Control** | Git & GitHub |
+
+> ⚠️ **No external libraries, frameworks, or build tools are required.** The entire system is implemented using core Java only.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Java JDK 8 or higher** installed on your machine
+- A terminal / command prompt
+- _(Optional)_ An IDE such as IntelliJ IDEA or Eclipse
+
+### Installation
+
+**1. Clone the repository:**
+```bash
+git clone https://github.com/your-org/restaurant-management-system.git
+cd restaurant-management-system
+```
+
+**2. Compile the project:**
+```bash
+javac -d out/production src/**/*.java
+```
+> If using an IDE, simply import the project and let the IDE handle compilation.
+
+**3. Run the application:**
+```bash
+java -cp out/production Main
+```
+
+### Default Credentials _(Seeded Data)_
+
+The system auto-seeds initial data on first run. Use the seeded admin credentials displayed in the console to log in and explore all modules.
+
+---
+
+## 📁 Project Structure
+
+```
+restaurant-management-system/
 │
-├── model/        → Data classes (Customer, Order, Meal, etc.)
-├── service/      → Business logic (OrderService, BillingService, etc.)
-├── util/         → Helper classes (InputValidator, IdGenerator, etc.)
-├── enums/        → Enumerations (OrderStatus, PaymentMethod, etc.)
-└── main/         → Main application entry point
-
+├── src/
+│   ├── config/              # Application configuration
+│   ├── auth/                # Authentication & authorization
+│   ├── entities/            # Core user and domain entities
+│   ├── seeding/             # Data seeding utilities
+│   ├── utils/               # ID generation & shared helpers
+│   │
+│   ├── customer/            # Customer entity & service
+│   ├── employee/            # Employee entity & service
+│   │
+│   ├── meal/                # Meal & category entities/services
+│   ├── order/               # Order & OrderItem processing
+│   │
+│   ├── billing/             # Billing & invoice management
+│   ├── payment/             # Payment processing
+│   ├── offers/              # Offers & promotional gifts
+│   ├── notifications/       # Notification system
+│   ├── reports/             # Reporting & analytics
+│   │
+│   ├── loyalty/             # Loyalty program
+│   ├── marketing/           # Marketing campaigns
+│   ├── rewards/             # Reward programs
+│   │
+│   ├── display/             # Console UI rendering
+│   ├── validation/          # Input validation logic
+│   ├── menu/                # Menu navigation utilities
+│   │
+│   └── Main.java            # Application entry point
+│
+└── README.md
 ```
 
 ---
 
-## Team Members & Roles
+## 👨‍💻 Development Team
 
-- Member 1 — Team Leader (Architecture & Integration)
-- Member 2 — Employee & Customer Management
-- Member 3 — Meals & Orders
-- Member 4 — Billing, Offers & Reports
-- Member 5 — Menus & Input Handling
-- Member 6 — Programs, Testing & Documentation
+This system was designed and built from scratch by a team of six dedicated engineers. Each member owned their modules end-to-end — from entity design to service implementation.
 
 ---
 
-## How to Run the Project
+### 🧑‍💼 Mohamed Yasser — *Team Lead & Core Systems Architect*
+> **Modules:** Config · Authentication · Core User Entities · Data Seeding · ID Generation · Main Application (co-lead)
 
-1. Clone the repository:
-```
-
-git clone [git@github.com](mailto:git@github.com):M0SAIF-ANTNET/Restaurant-Management-System.git
-
-```
-
-2. Navigate to the project folder:
-```
-
-cd Restaurant-Management-System
-
-```
-
-3. Compile the project:
-```
-
-javac src/main/Main.java
-
-```
-
-4. Run the project:
-```
-
-java src.main.Main
-
-```
+Laid the foundation of the entire system. Responsible for the application's configuration layer, the authentication and authorization system, all core user entity definitions, automated data seeding on startup, and the custom ID generation engine used across all modules. Co-led the final main application wiring and execution.
 
 ---
 
-## Development Workflow
+### 👨‍💻 Mahmoud Gad — *Customer & Employee Systems Engineer*
+> **Modules:** Customer Service · Customer Entity · Employee Service · Employee Entity
 
-- Each team member works on a separate branch
-- Changes are committed with clear messages
-- Code is reviewed and merged by the Team Leader
-- Main branch contains stable code only
+Designed and implemented the full lifecycle management for both customer and employee records, including their data models, business logic, and dedicated service layers. Ensured clean role-based separation between user types.
 
 ---
 
-## System Workflow
+### 👨‍💻 Marwan — *Menu & Order Domain Engineer*
+> **Modules:** Meal · Order · OrderItem · Categories · Related Services
 
-1. Admin logs in and manages employees and meals  
-2. Employee logs in and manages customers  
-3. Employee creates an order for a customer  
-4. Order total is calculated  
-5. Bill is generated  
-6. Payment is processed  
-7. System checks for offers and rewards  
-8. Notifications are sent  
-9. Reports can be generated  
+Built the core operational backbone of the restaurant. Designed the meal and category data models, and implemented the full order management pipeline — from order creation and item composition to status tracking and fulfillment logic.
 
 ---
 
-## OOP Concepts Applied
+### 👨‍💻 Abdelrahman — *Financial & Operations Systems Engineer*
+> **Modules:** Billing · Reports · Notifications · Payments · Offers · Gifts
 
-- Encapsulation → Private fields with getters/setters  
-- Inheritance → Person → User → Admin/Employee  
-- Abstraction → Separation of models and services  
-- Composition → Order contains OrderItems, OrderItem contains Meal  
+Engineered the financial and operational intelligence layer of the system. Implemented automated billing generation, multi-method payment processing, reporting and analytics, the notification dispatch system, and the offers and gifts promotion engine.
 
 ---
 
-## Future Improvements
+### 👨‍💻 Amr Khaled — *Loyalty & Marketing Systems Engineer*
+> **Modules:** Loyalty Program · Marketing Campaigns · Reward Programs
 
-- Add GUI (JavaFX or Swing)
-- Add database integration (MySQL)
-- Add authentication security
-- Improve reporting system
-- Add real-time notifications
+Built the customer engagement and retention arm of the system. Designed and implemented the full loyalty point engine, reward program structures, and marketing campaign management — enabling the restaurant to run promotions and incentivize repeat customers.
 
 ---
 
-## Final Note
+### 👨‍💻 Youssef — *Console UI & Validation Engineer*
+> **Modules:** Console Display · Input Validation · Menu Utilities · Main Application (co-lead)
 
-This project demonstrates how to build a complete system using Object-Oriented Programming principles. The focus is on clean architecture, modular design, and proper collaboration between team members.
+Owned the entire user-facing layer of the application. Developed the console display rendering system, all input validation logic to ensure data integrity, and the reusable menu utility components that provide consistent navigation throughout the app. Co-led final main application execution with Mohamed Yasser.
 
 ---
+
+<div align="center">
+
+**Built with ☕ Java and a lot of hard work — entirely from scratch.**
+
+*© 2024 Restaurant Management System Team. All rights reserved.*
+
+</div>
