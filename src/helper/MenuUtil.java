@@ -1,6 +1,7 @@
 package helper;
 
 import service.core.*;
+import service.core.*;
 import helper.InputValidator;
 import helper.DisplayHelper;
 import service.support.*;
@@ -19,8 +20,8 @@ public class MenuUtil {
     private final EmployeeService employeeService;
 
     // Errors
-    // private final MealService mealService;
-    // private final OrderService orderService;
+    private final MealService mealService;
+    private final OrderService orderService;
 
     // From main.java
     public MenuUtil (AuthService authService, BillingService billingService, CustomerService customerService, 
@@ -32,8 +33,8 @@ public class MenuUtil {
         this.employeeService = new EmployeeService();
 
         // Errors
-        // this.mealService = new MealServices();
-        // this.orderService = new OrderService();
+        this.mealService = new MealService();
+        this.orderService = new OrderService();
     }
      
     // UI
@@ -165,10 +166,10 @@ public class MenuUtil {
         }
         Employee currentEmp = (Employee) authService.getCurrentUser();
         // Error
-        // Order newOrder = orderService.createOrder(customer, currentEmp);
+        Order newOrder = orderService.createOrder(customer, currentEmp);
 
         boolean addMeals = true;
-        while (true) {
+        while (addMeals) {
             mealService.listAllMeals();
             String choise = InputValidator.Read_String("Enter Meal ID to add (\"0\" to finish)");
             if (choise == "0") {
@@ -176,12 +177,13 @@ public class MenuUtil {
             } else {
                 Meal meal = mealService.getMealById(choise);
                 if (meal != null) {
-                    int quan = InputValidator.Read_Int("Quantity: ");
-                    orderService.addMealToOrder(newOrder.getOrderId(), meal, quan);
+                    int quantity = InputValidator.Read_Int("Quantity: ");
+                    orderService.addMealToOrder(newOrder.getOrderId(), meal, quantity);
                 }
             }
         }
-        System.out.println("Order Total = " + newOrder.calculateOrderTotal());
+        String orderID = newOrder.getOrderId();
+        System.out.println("Order Total = " + orderService.calculateOrderTotal(orderID));
     }
     
 
@@ -196,22 +198,25 @@ public class MenuUtil {
             System.out.println("Current Order: " + order.getStatus());
 
             int choise = InputValidator.Read_Int("1. Confirm Order\n2. Complete Order\n3. Cancle Order\n4. Back\n");
-        }
 
-        switch (choise) {
-            case 1:
-                orderService.confirmOrder(orderID);
-                break;
-            case 2:
-                orderService.completeOrder(orderID);
-                break;
-            case 3:
-                orderService.cancelOrder(orderId);
-                break;
-            case 4:
-                return;
-            default:
-                break;
+            switch (choise) {
+                case 1:
+                    orderService.confirmOrder(orderID);
+                    break;
+                case 2:
+                    orderService.completeOrder(orderID);
+                    break;
+                case 3:
+                    orderService.cancelOrder(orderID);
+                    break;
+                case 4:
+                    return;
+                default:
+                    break;
+            }
+        }
+        else {
+            System.out.println("Order not found");
         }
     }
     
@@ -231,10 +236,10 @@ public class MenuUtil {
                 ReportService.generateSalesReport();
                 break;
             case 2:
-                ReportService.generateEmployeeReport(employeeService.listAllEmployees());
+                ReportService.generateEmployeeReport(employeeService.listAllEmployees());   //ArrayList Employees
                 break;
             case 3:
-                ReportService.generateCustomerReport(customerService.listAllCustomers());
+                ReportService.generateCustomerReport(customerService.listAllCustomers());   // ArrayList Customers
                 break;
             case 4:
                 handleNotifications();
@@ -308,7 +313,7 @@ public class MenuUtil {
                 // }
 
             case 3:
-                int mealID = InputValidator.Read_Int("Enter Meal ID: ");
+                String mealID = InputValidator.Read_String("Enter Meal ID: ");
                 mealService.removeMeal(mealID);
                 break;
             case 4:
