@@ -5,6 +5,9 @@ import helper.InputValidator;
 import helper.DisplayHelper;
 import service.support.*;
 import entity.*;
+import java.util.*;
+import constants.MealCategory;
+
 
 public class MenuUtil {
 
@@ -97,12 +100,12 @@ public class MenuUtil {
             switch (choise) {
                case 1:
                    manageEmployees();
-                   braek;
+                   break;
                 case 2:
-                    manageMeaks();
+                    manageMeals();
                     break;
                 case 3:
-                    showReports();
+                    Show_Reports_Menu();
                     break;
 
                 case 4:
@@ -122,10 +125,10 @@ public class MenuUtil {
         boolean check = false;
         while (!check) {
             System.out.println("Employee Menu");
-            System.out.println("1. Manage/Register Customers")
-            System.out.println("2. Create New Order")
-            System.out.println("3. Track Order Status")
-            System.out.println("4. Out")
+            System.out.println("1. Manage/Register Customers");
+            System.out.println("2. Create New Order");
+            System.out.println("3. Track Order Status");
+            System.out.println("4. Out");
 
             int choise = InputValidator.Read_Int("Enter Choise: ");
 
@@ -144,7 +147,7 @@ public class MenuUtil {
                     check = true;
                     break;
                 default:
-                    System.out.println("Invalid Choise")
+                    System.out.println("Invalid Choise");
                     break;
             }
         }
@@ -170,8 +173,7 @@ public class MenuUtil {
             String choise = InputValidator.Read_String("Enter Meal ID to add (\"0\" to finish)");
             if (choise == "0") {
                 addMeals = false;
-            }
-            else {
+            } else {
                 Meal meal = mealService.getMealById(choise);
                 if (meal != null) {
                     int quan = InputValidator.Read_Int("Quantity: ");
@@ -179,6 +181,171 @@ public class MenuUtil {
                 }
             }
         }
-        System.out.println("Order Total = "+newOrder.calculateOrderTotal());
+        System.out.println("Order Total = " + newOrder.calculateOrderTotal());
+    }
+    
+
+    public void manage_Order_Status() {
+        System.out.println("Order Status");
+        orderService.listAllOrders();
+
+        String orderID = InputValidator.Read_String("Enter Order ID: ");
+        Order order = orderService.getOrderById(orderID);
+
+        if (order != null) {
+            System.out.println("Current Order: " + order.getStatus());
+
+            int choise = InputValidator.Read_Int("1. Confirm Order\n2. Complete Order\n3. Cancle Order\n4. Back\n");
+        }
+
+        switch (choise) {
+            case 1:
+                orderService.confirmOrder(orderID);
+                break;
+            case 2:
+                orderService.completeOrder(orderID);
+                break;
+            case 3:
+                orderService.cancelOrder(orderId);
+                break;
+            case 4:
+                return;
+            default:
+                break;
+        }
+    }
+    
+
+    public void Show_Reports_Menu() {
+        System.out.println("Reports");
+        System.out.println("1. Sales Report");
+        System.out.println("2. Employee Performane");
+        System.out.println("3. Customer Activity");
+        System.out.println("4. Offers & Notifications");
+        System.out.println("5. Back");
+
+        int choise = InputValidator.Read_Int("Enter Your Choise: ");
+
+        switch (choise) {
+            case 1:
+                ReportService.generateSalesReport();
+                break;
+            case 2:
+                ReportService.generateEmployeeReport(employeeService.listAllEmployees());
+                break;
+            case 3:
+                ReportService.generateCustomerReport(customerService.listAllCustomers());
+                break;
+            case 4:
+                handleNotifications();
+                break;
+            case 5:
+                return;
+        }
+
+    }
+
+
+    public void handleNotifications() {
+        System.out.println("System Notifications");
+        ArrayList<Notification> notifications = NotificationService.getAllNotifications();
+
+        if (notifications.isEmpty()) {
+            System.out.println("No New Notifications");
+        } else {
+            for (Notification note : notifications) {
+                System.out.println("-" + note.getMessage());
+            }
+        }
+    }
+    
+
+    public void manageEmployees() {
+        System.out.println("Employees Management");
+        System.out.println(
+                "1. Add New Employee\n2. Update Employee\n3. Search Employee\n4. Delete Employee\n5. View All Employees\n6. Back");
+
+        int choise = InputValidator.Read_Int("Enter Your Choise: ");
+
+        switch (choise) {
+            case 1:
+                employeeService.addEmployee();
+                break;
+            case 2:
+                employeeService.updateEmployee();
+                break;
+            case 3:
+                int empID = InputValidator.Read_Int("Enter Employee ID: ");
+                employeeService.searchEmployeeById(empID);
+                break;
+            case 4:
+                employeeService.deleteEmployee();
+                break;
+            case 5:
+                employeeService.listAllEmployees();
+                break;
+            case 6:
+                return;
+        }
+
+    }
+    
+
+    public void manageMeals() {
+        System.out.println("Meals Management");
+        System.out.println("1. Add New Meal\n2. Update Meal\n3. Delete Meal\n4. View All Meals\n5. Back");
+        int choise = InputValidator.Read_Int("Enter Your Choise: ");
+        switch (choise) {
+            case 1:
+                String mealName = InputValidator.Read_String("Enter Meal Name: ");
+                String mealDes = InputValidator.Read_String("Enter Meal Description: ");
+                double mealPrice = InputValidator.Read_Double("Enter Meal Price: ");
+                // Error
+                // System.out.println("Select Meal Category: ");
+                // MealCategory[] categories = MealCategory.values();
+                // for(int i = 0 ; categories.length ; i++){
+
+                // }
+
+            case 3:
+                int mealID = InputValidator.Read_Int("Enter Meal ID: ");
+                mealService.removeMeal(mealID);
+                break;
+            case 4:
+                mealService.listAllMeals();
+                break;
+            case 5:
+                return;
+
+        }
+    }
+    
+
+    public void manageCustomer(){
+        System.out.println("Customer Management");
+        System.out.println(
+                "1. Add Customer\n2. Search for Customer\n3. Remove Customer\n4. Update Customer\n5. Display Customer History\n6. Back");
+
+        int choise = InputValidator.Read_Int("Enter Your Choise: ");
+        switch (choise) {
+            case 1:
+                customerService.addCustomer();
+                break;
+            case 2:
+                int custID = InputValidator.Read_Int("Enter Customer ID: ");
+                customerService.searchCustomerById(custID);
+                break;
+            case 3:
+                customerService.removeCustomer();
+                break;
+            case 4:
+                customerService.updateCustomer();
+                break;
+            case 5:
+                customerService.displayCustomerHistory();
+                break;
+            case 6:
+                return;
+        }
     }
 }
