@@ -7,7 +7,7 @@ import helper.DisplayHelper;
 import service.support.*;
 import entity.*;
 import java.util.*;
-import constants.MealCategory;
+import constants.*;
 
 
 public class MenuUtil {
@@ -18,8 +18,6 @@ public class MenuUtil {
     private final BillingService billingService;
     private final CustomerService customerService;
     private final EmployeeService employeeService;
-
-    // Errors
     private final MealService mealService;
     private final OrderService orderService;
 
@@ -27,23 +25,22 @@ public class MenuUtil {
     public MenuUtil (AuthService authService, BillingService billingService, CustomerService customerService, 
      EmployeeService employeeService, MealService mealService,  OrderService orderService)
     {
-        this.authService = new AuthService();
-        this.billingService = new BillingService();
-        this.customerService = new CustomerService();
-        this.employeeService = new EmployeeService();
-
-        // Errors
-        this.mealService = new MealService();
-        this.orderService = new OrderService();
+        this.authService =  authService;
+        this.billingService = billingService;
+        this.customerService = customerService;
+        this.employeeService = employeeService;
+        this.mealService = mealService;
+        this.orderService = orderService;
     }
      
     // UI
     public void Show_Main_Menu() {
         while (true) {
-            System.out.println("Restaurant Management System ");
+            System.out.println("--------Restaurant Management System--------");
             System.out.println("1. Admin Login");
-            System.out.println("1. Employee Login");
-            System.out.println("1. Exit");
+            System.out.println("2. Employee Login");
+            System.out.println("3. Exit");
+
             int choise = InputValidator.Read_Int("Enter Your Choise: ");
 
             switch (choise) {
@@ -90,7 +87,7 @@ public class MenuUtil {
     public void Show_Admin_Menu() {
         boolean check = false;
         while (!check) {
-            System.out.println("Admin Menu");
+            System.out.println("--------Admin Menu--------");
             System.out.println("1. Manage Employees");
             System.out.println("2. Manage Meals");
             System.out.println("3. System Reports");
@@ -110,7 +107,7 @@ public class MenuUtil {
                     break;
 
                 case 4:
-                    authService.logout();;
+                    authService.logout();
                     check=true;
                     break;
                 default:
@@ -125,7 +122,7 @@ public class MenuUtil {
     public void Show_Employee_Menu() {
         boolean check = false;
         while (!check) {
-            System.out.println("Employee Menu");
+            System.out.println("--------Employee Menu--------");
             System.out.println("1. Manage/Register Customers");
             System.out.println("2. Create New Order");
             System.out.println("3. Track Order Status");
@@ -156,10 +153,12 @@ public class MenuUtil {
 
 
     public void Handle_Create_Order() {
-        System.out.println("Create New Order");
+
+        System.out.println("--------Create New Order--------");
 
         int customerID = InputValidator.Read_Int("Enter Customer ID: ");
         Customer customer = customerService.searchCustomerById(customerID);
+
         if (customer == null) {
             System.out.println("Customer not found");
             return;
@@ -172,9 +171,10 @@ public class MenuUtil {
         while (addMeals) {
             mealService.listAllMeals();
             String choise = InputValidator.Read_String("Enter Meal ID to add (\"0\" to finish)");
-            if (choise == "0") {
+            if ("0".equals(choise)) {
                 addMeals = false;
-            } else {
+            } 
+            else {
                 Meal meal = mealService.getMealById(choise);
                 if (meal != null) {
                     int quantity = InputValidator.Read_Int("Quantity: ");
@@ -188,7 +188,8 @@ public class MenuUtil {
     
 
     public void manage_Order_Status() {
-        System.out.println("Order Status");
+
+        System.out.println("--------Order Status--------");
         orderService.listAllOrders();
 
         String orderID = InputValidator.Read_String("Enter Order ID: ");
@@ -222,7 +223,8 @@ public class MenuUtil {
     
 
     public void Show_Reports_Menu() {
-        System.out.println("Reports");
+
+        System.out.println("--------Reports--------");
         System.out.println("1. Sales Report");
         System.out.println("2. Employee Performane");
         System.out.println("3. Customer Activity");
@@ -252,12 +254,14 @@ public class MenuUtil {
 
 
     public void handleNotifications() {
-        System.out.println("System Notifications");
+
+        System.out.println("--------System Notifications--------");
         ArrayList<Notification> notifications = NotificationService.getAllNotifications();
 
         if (notifications.isEmpty()) {
             System.out.println("No New Notifications");
-        } else {
+        } 
+        else {
             for (Notification note : notifications) {
                 System.out.println("-" + note.getMessage());
             }
@@ -266,7 +270,8 @@ public class MenuUtil {
     
 
     public void manageEmployees() {
-        System.out.println("Employees Management");
+
+        System.out.println("--------Employees Management--------");
         System.out.println(
                 "1. Add New Employee\n2. Update Employee\n3. Search Employee\n4. Delete Employee\n5. View All Employees\n6. Back");
 
@@ -297,25 +302,66 @@ public class MenuUtil {
     
 
     public void manageMeals() {
-        System.out.println("Meals Management");
+
+        System.out.println("--------Meals Management--------");
         System.out.println("1. Add New Meal\n2. Update Meal\n3. Delete Meal\n4. View All Meals\n5. Back");
+
         int choise = InputValidator.Read_Int("Enter Your Choise: ");
+
         switch (choise) {
-            case 1:
+            case 1: {
                 String mealName = InputValidator.Read_String("Enter Meal Name: ");
                 String mealDes = InputValidator.Read_String("Enter Meal Description: ");
                 double mealPrice = InputValidator.Read_Double("Enter Meal Price: ");
-                // Error
-                // System.out.println("Select Meal Category: ");
-                // MealCategory[] categories = MealCategory.values();
-                // for(int i = 0 ; categories.length ; i++){
 
-                // }
+                constants.MealCategory[] categories = constants.MealCategory.values();
 
-            case 3:
+                System.out.println("Select Category: ");
+                for (int i = 0; i < categories.length; i++) {
+                    System.out.println((i + 1) + ". " + categories[i]);
+                }
+                int ch = InputValidator.Read_Int("Enter Your Choise: ");
+
+                if (ch > 0 && ch <= categories.length) {
+                    constants.MealCategory selectedCategory = categories[ch - 1];
+                    mealService.addMeal(mealName, mealDes, selectedCategory, mealPrice);
+                } else {
+                    System.out.println("Invalid category selection");
+                }
+                break;
+            }
+            case 2: {
+                String mealID = InputValidator.Read_String("Enter Meal ID: ");
+                String newName = InputValidator.Read_String("Enter New Meal Name: ");
+                String newDes = InputValidator.Read_String("Enter New Description: ");
+                double newPrice = InputValidator.Read_Double("Enter New Price: ");
+                
+                // boolean available = 
+                
+                constants.MealCategory[] Newcategories = constants.MealCategory.values();
+
+                System.out.println("Select New Category: ");
+                for (int i = 0; i < Newcategories.length; i++) {
+                    System.out.println((i + 1) + ". " + Newcategories[i]);
+                }
+                int newChoise = InputValidator.Read_Int("Enter Your Choise: ");
+
+                if (newChoise > 0 && newChoise <= Newcategories.length) {
+                    constants.MealCategory selected_New_Category = Newcategories[newChoise - 1];
+                    mealService.updateMeal(mealID, newName, newDes, selected_New_Category, newPrice, true);
+                }
+                
+                else {
+                    System.out.println("Invalid category selection");
+                }
+            }
+
+
+            case 3:{
                 String mealID = InputValidator.Read_String("Enter Meal ID: ");
                 mealService.removeMeal(mealID);
                 break;
+            }
             case 4:
                 mealService.listAllMeals();
                 break;
@@ -324,10 +370,12 @@ public class MenuUtil {
 
         }
     }
+
     
 
-    public void manageCustomer(){
-        System.out.println("Customer Management");
+    public void manageCustomer() {
+        
+        System.out.println("--------Customer Management--------");
         System.out.println(
                 "1. Add Customer\n2. Search for Customer\n3. Remove Customer\n4. Update Customer\n5. Display Customer History\n6. Back");
 
